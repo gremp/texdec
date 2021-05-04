@@ -9,7 +9,8 @@ export interface IParamExtraInfo {
   args: any[],
   type: Function,
   parameterName: string,
-  castToType: boolean
+  castToType: boolean,
+  typeName: string
 }
 
 export type TEX_DEC_SETTING_KEYS = 'castHelper'

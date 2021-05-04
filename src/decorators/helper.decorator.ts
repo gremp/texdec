@@ -26,7 +26,7 @@ export function getFuncParams(
     const paramsExtraInfo = getParamExtraInfo(target[targetMeta], indices)
     if (!paramsExtraInfo || !paramsExtraInfo.length) throw new Error('Cannot find parameter extra information')
     if (!routeParamTypeHelper[keyType]) throw new Error('Cannot find definitions for route parameter. You must add on your RouteParamTypeHelper the same key as the first parameter of variableDecorator on your custom param decorator')
-    insertToFuncParams(funcParams, indices, params, _.get(routeVariables, routeParamTypeHelper[keyType].path), routeParamTypeHelper[keyType].useFullObject, target[targetMeta])
+    insertToFuncParams(funcParams, indices, params, _.get(routeVariables, routeParamTypeHelper[keyType].path), routeParamTypeHelper[keyType].useFullObject, target[targetMeta], keyType)
   }
   return funcParams
 }
@@ -59,15 +59,16 @@ function insertToFuncParams(
   paramNames: string[],
   paramsData: any,
   useFullVariable: boolean = false,
-  paramsExtraInfo: IParamExtraInfo[]
+  paramsExtraInfo: IParamExtraInfo[],
+  keyType: string
 ) {
 
   paramNames.forEach((value, index) => {
     if (value) {
       if (paramsData && !useFullVariable) {
-        funcParams[index] = {value: _.get(paramsData, value), meta: paramsExtraInfo[index], key: paramNames[index]}
+        funcParams[index] = {value: _.get(paramsData, value), meta: {...paramsExtraInfo[index], typeName: keyType}, key: paramNames[index]}
       } else if (useFullVariable) {
-        funcParams[index] = {value: paramsData, meta: paramsExtraInfo[index], key: paramNames[index]}
+        funcParams[index] = {value: paramsData, meta: {...paramsExtraInfo[index], typeName: keyType}, key: paramNames[index]}
       }
     }
   })

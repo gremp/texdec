@@ -9,7 +9,13 @@ import {IParamExtraInfo} from '../interfaces'
 import {CastHelper} from '../utils/cast.helper'
 import {TExDecSettings} from '../utils/texdec-settings.singleton'
 
+const texDecSettings = TExDecSettings.getInstance()
+let routeParamTypeHelper: any
+
 function ApiCall(route: string, method: IMethod, validationObj: IValidationObj | undefined, customResponse: boolean) {
+  const RouteParamTypeHelperClass = texDecSettings.get('routeParamHelper')
+  if (!routeParamTypeHelper) routeParamTypeHelper = new RouteParamTypeHelperClass()
+
   return function (target: any, key: any, descriptor: any) {
     const routerDecorator = new RouterDecorator()
     // save a reference to the original method this way we keep the values currently in the
@@ -25,12 +31,23 @@ function ApiCall(route: string, method: IMethod, validationObj: IValidationObj |
 
       try {
         const funcParams = getFuncParams(target, key, originalMethod, req, res, next)
-        const {funcValues, objForValidation} = await postParameterProcessing(funcParams)
+        const {funcValues, objForValidation} = await postParameterProcessing(funcParams, req)
         if (validationObj) await validateRoute(validationObj, objForValidation)
+
+
         const methodResult: any = originalMethod.apply(target.constructor._instance, funcValues)
 
         // I use await so I skip checking if methodResult is a promise or not(e.x await 5 => return 5)
         response = await methodResult
+
+        await Promise.all(funcParams.map(async (funcParam, index) => {
+            const typeName = funcParam.meta.typeName
+            if (routeParamTypeHelper[typeName] && routeParamTypeHelper[typeName].after) {
+              await routeParamTypeHelper[typeName].after(req, response, funcValues[index], funcParam.meta.args)
+            }
+          })
+        )
+
 
         if (!customResponse) res.json(response)
 
@@ -105,15 +122,20 @@ function formatErrors(errors: any[]) {
     .join(', ')
 }
 
-function postParameterProcessing(funcParams: {value: any, meta: IParamExtraInfo, key: string}[]) {
+async function postParameterProcessing(funcParams: { value: any, meta: IParamExtraInfo, key: string }[], req: Request) {
   const objForValidation: any = {}
-  const funcValues: any = []
-  for (const funcParam of funcParams) {
+  const funcValues: any = Array(funcParams.length)
+  await Promise.all(funcParams.map(async (funcParam, index) => {
     objForValidation[funcParam.key] = funcParam.meta.castToType
       ? castParamToType(funcParam.value, funcParam.meta.type)
       : funcParam.value
-    funcValues.push(objForValidation[funcParam.key])
-  }
+    const typeName = funcParam.meta.typeName
+    if (routeParamTypeHelper[typeName] && routeParamTypeHelper[typeName].before) {
+      funcValues[index] = (await routeParamTypeHelper[typeName].before(req, funcParam.meta.args))
+    } else {
+      funcValues[index] = (objForValidation[funcParam.key])
+    }
+  }))
   return {objForValidation, funcValues}
 
 }
