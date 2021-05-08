@@ -1,11 +1,13 @@
 {
   "name": "texdev",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "tsc",
+    "create-release": "./scripts/push-release.sh",
+    "create-release-npm": "npm run create-release -- npm",
     "watch": "tsc --watch"
   },
   "keywords": [],
