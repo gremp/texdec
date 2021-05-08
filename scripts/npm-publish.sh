@@ -12,7 +12,8 @@ cd package
 mv README.md dist
 mv package.json dist
 cd dist
-npm publish
-rm -rf tmpFolder
-cd $projectFolder
+echo $tmpFolder
+ npm publish
+ rm -rf tmpFolder
+ cd $projectFolder
 
