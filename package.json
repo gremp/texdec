@@ -1,13 +1,10 @@
 {
   "name": "texdec",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "A typescript web framework that I actually like to use",
   "author": "George Rempousis",
   "main": "index.js",
   "types": "index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "tsc": "tsc",
