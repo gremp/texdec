@@ -5,16 +5,24 @@
   "author": "George Rempousis",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "prepare" : "npm run build",
+    "prepare": "npm run build",
     "watch": "npm run tsc -- --watch",
-    "version" : "git add -A src",
-    "postversion" : "git push && git push --tags"
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags",
+    "semantic-release": "semantic-release"
   },
-  "keywords": ["Typescript", "ExpressJS", "Web Framework", "Decorators"],
+  "keywords": [
+    "Typescript",
+    "ExpressJS",
+    "Web Framework",
+    "Decorators"
+  ],
   "license": "ISC",
   "dependencies": {
     "@types/body-parser": "^1.19.0",
@@ -31,5 +39,9 @@
   "peerDependencies": {
     "express": "^4.17.1",
     "typescript": "^4.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gremp/texdec.git"
   }
 }
