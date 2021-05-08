@@ -1,18 +1,20 @@
 {
   "name": "texdev",
   "version": "0.0.9",
-  "description": "",
-  "main": "index.js",
+  "description": "A typescript web framework that I actually like to use",
+  "author": "George Rempousis",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist/**/*"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc",
-    "install": "npm run tsc",
-    "create-release": "./scripts/push-release.sh",
-    "create-release-npm": "npm run create-release -- npm",
-    "watch": "npm run tsc -- --watch"
+    "build": "tsc",
+    "prepare" : "npm run build",
+    "watch": "npm run tsc -- --watch",
+    "version" : "git add -A src",
+    "postversion" : "git push && git push --tags"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Typescript", "ExpressJS", "Web Framework", "Decorators"],
   "license": "ISC",
   "dependencies": {
     "@types/body-parser": "^1.19.0",
