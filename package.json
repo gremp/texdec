@@ -11,7 +11,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "tsc": "tsc",
-    "watch": "npm run tsc -- --watch"
+    "watch": "npm run tsc -- --watch",
+    "npm-publish": "sh ./scripts/npm-publish.sh"
   },
   "keywords": [
     "Typescript",
