@@ -1,6 +1,6 @@
 {
   "name": "texdev",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A typescript web framework that I actually like to use",
   "author": "George Rempousis",
   "main": "dist/index.js",
