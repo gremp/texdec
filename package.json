@@ -16,7 +16,7 @@
     "version": "git add -A src",
     "postversion": "git push && git push --tags",
     "semantic-release": "semantic-release",
-    "np": "np --contents dist"
+    "np": "np --no-release-draft --contents dist"
   },
   "keywords": [
     "Typescript",
