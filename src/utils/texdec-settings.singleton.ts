@@ -12,6 +12,7 @@ export class TExDecSettings {
     'webLogger': console,
     'routerLogger': console,
     'baseRoute': '',
+
   }
 
 
