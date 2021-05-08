@@ -11,12 +11,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "tsc",
+    "postbuild": "cp package.json dist",
     "prepare": "npm run build",
     "watch": "npm run tsc -- --watch",
     "version": "git add -A src",
     "postversion": "git push && git push --tags",
-    "semantic-release": "semantic-release",
-    "np": "np --no-release-draft --contents dist"
   },
   "keywords": [
     "Typescript",
