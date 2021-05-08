@@ -15,7 +15,7 @@
     "prepare": "npm run build",
     "watch": "npm run tsc -- --watch",
     "version": "git add -A src",
-    "postversion": "git push && git push --tags",
+    "postversion": "git push && git push --tags"
   },
   "keywords": [
     "Typescript",
