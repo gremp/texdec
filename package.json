@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "tsc",
+    "tsc": "tsc",
+    "install": "npm run tsc",
     "create-release": "./scripts/push-release.sh",
     "create-release-npm": "npm run create-release -- npm",
-    "watch": "tsc --watch"
+    "watch": "npm run tsc -- --watch"
   },
   "keywords": [],
   "author": "",

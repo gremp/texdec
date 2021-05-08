@@ -22,13 +22,11 @@ CURRENT_BRANCH=`git branch | grep \* | cut -d ' ' -f2`
 CURRENT_COMMIT=`git rev-parse --short HEAD`
 npm run tsc
 
-cp widget.* dist/
-
 git checkout releases/$RELEASE_TYPE
 rm -f *.js *.css
 
 git pull
-cp -rf dist-prod/* .
+cp -rf dist/* .
 git add .
 
 TAG=$RELEASE_TYPE-$TAG
