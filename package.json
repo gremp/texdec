@@ -15,7 +15,8 @@
     "watch": "npm run tsc -- --watch",
     "version": "git add -A src",
     "postversion": "git push && git push --tags",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "np": "np"
   },
   "keywords": [
     "Typescript",
@@ -35,6 +36,9 @@
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.19"
+  },
+  "devDependencies": {
+    "np": "^7.5.0"
   },
   "peerDependencies": {
     "express": "^4.17.1",
